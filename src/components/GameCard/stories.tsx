@@ -1,9 +1,20 @@
 import { Meta, StoryObj } from '@storybook/react'
-import GameCard from '.'
+import GameCard, { GameCardProps } from '.'
 
 export default {
   title: 'GameCard',
-  component: GameCard
-} as Meta
+  component: GameCard,
+  args: {
+    title: 'Population Zero',
+    developer: 'Rockstar Games',
+    img: 'https://github.com/gilberto-espinosa/assets/blob/main/games/fall-guys.jpg?raw=true',
+    price: 'R$ 235,00'
+  },
+  render: ({ ...args }) => (
+    <div style={{ width: '30rem' }}>
+      <GameCard {...args} />
+    </div>
+  )
+} as Meta<GameCardProps>
 
 export const Default: StoryObj = {}
