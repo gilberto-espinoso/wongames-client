@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
-import Highlight from '.'
+import Highlight, { HighlightProps } from '.'
 
 export default {
   title: 'Highlight',
@@ -12,5 +12,16 @@ export default {
     buttonLink: '/rdr2'
   }
 } as Meta
+
+export const WithFloatImage: StoryObj<HighlightProps> = {
+  args: {
+    floatImage: '/img/red-dead-float.png'
+  },
+  render: ({ ...args }) => (
+    <div style={{ maxWidth: '104rem' }}>
+      <Highlight {...args} />
+    </div>
+  )
+}
 
 export const Default: StoryObj = {}
