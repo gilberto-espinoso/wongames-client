@@ -11,6 +11,9 @@ export default {
     price: 'R$ 235,00',
     promotionalPrice: 'R$ 200,00'
   },
+  argTypes: {
+    onFav: { action: 'clicked' }
+  },
   render: ({ ...args }) => (
     <div style={{ width: '30rem' }}>
       <GameCard {...args} />
