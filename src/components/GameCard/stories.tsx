@@ -8,7 +8,8 @@ export default {
     title: 'Population Zero',
     developer: 'Rockstar Games',
     img: 'https://github.com/gilberto-espinosa/assets/blob/main/games/fall-guys.jpg?raw=true',
-    price: 'R$ 235,00'
+    price: 'R$ 235,00',
+    promotionalPrice: 'R$ 200,00'
   },
   render: ({ ...args }) => (
     <div style={{ width: '30rem' }}>
