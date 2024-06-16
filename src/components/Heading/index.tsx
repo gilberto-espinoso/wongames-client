@@ -13,7 +13,7 @@ export type HeadingProp = {
 
 const Heading = ({
   children,
-  color = 'black',
+  color = 'white',
   lineLeft = false,
   lineBottom = false,
   lineColor = 'primary',
