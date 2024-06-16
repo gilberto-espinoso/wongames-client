@@ -63,7 +63,7 @@ export default {
 export const Default: StoryObj<GameCardProps> = {
   render: ({ ...args }) => (
     <div style={{ maxWidth: '130rem', margin: '0 auto' }}>
-      <GameCardSlider {...args} />
+      <GameCardSlider items={items} {...args} />
     </div>
   )
 }
