@@ -21,16 +21,13 @@ const FormSignIn = () => (
         type="password"
         icon={<Lock />}
       />
-      <S.ForgetPassword href="#">Forgot your password</S.ForgetPassword>
+      <S.ForgotPassword href="#">Forgot your password</S.ForgotPassword>
       <Button size="large" fullWidth>
         Dign in now
       </Button>
 
       <S.FormLink>
-        Don`t have an account?{' '}
-        <Link href="/sign-up">
-          <a>Sign up</a>
-        </Link>
+        Don`t have an account? <Link href="/sign-up">Sign up</Link>
       </S.FormLink>
     </form>
   </S.Wrapper>
