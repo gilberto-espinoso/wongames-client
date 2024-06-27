@@ -15,7 +15,7 @@ export default {
   argTypes: {
     platforms: {
       control: {
-        type: 'radio',
+        type: 'inline-check',
         options: ['windows', 'linux', 'mac']
       }
     }
@@ -25,7 +25,7 @@ export default {
 export const Default: StoryObj<GameDetailsProps> = {
   render: ({ ...args }) => (
     <div style={{ maxWidth: '130rem', margin: '0 auto' }}>
-      <GameDetails platforms={args.platforms} />
+      <GameDetails {...args} />
     </div>
   )
 }
