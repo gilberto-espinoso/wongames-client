@@ -4,14 +4,21 @@ import { Close } from '@styled-icons/material-outlined/Close'
 
 import Slider, { SliderSettings } from '../../components/Slider'
 
-import { useEffect, useState } from 'react'
+import SlickSlider from 'react-slick'
+import { useEffect, useState, useRef } from 'react'
 import * as S from './styles'
 
-const settings: SliderSettings = {
+const commonSettings: SliderSettings = {
   arrows: true,
-  slidesToShow: 4,
   infinite: false,
   lazyLoad: 'ondemand',
+  nextArrow: <ArrowRight aria-label="next images" />,
+  prevArrow: <ArrowLeft aria-label="previous images" />
+}
+
+const settings: SliderSettings = {
+  ...commonSettings,
+  slidesToShow: 4,
   responsive: [
     {
       breakpoint: 1375,
@@ -37,10 +44,14 @@ const settings: SliderSettings = {
         draggable: true
       }
     }
-  ],
-  nextArrow: <ArrowRight aria-label="next images" />,
-  prevArrow: <ArrowLeft aria-label="previous images" />
+  ]
 }
+
+const modalSettings: SliderSettings = {
+  ...commonSettings,
+  slidesToShow: 1
+}
+
 export type GalleryImageProps = {
   src: string
   label: string
@@ -51,6 +62,7 @@ export type GalleryProps = {
 }
 
 const Gallery = ({ items }: GalleryProps) => {
+  const slider = useRef<SlickSlider>(null)
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -64,7 +76,7 @@ const Gallery = ({ items }: GalleryProps) => {
 
   return (
     <S.Wrapper>
-      <Slider settings={settings}>
+      <Slider ref={slider} settings={settings}>
         {items.map((item, index) => (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -74,26 +86,31 @@ const Gallery = ({ items }: GalleryProps) => {
             alt={`Thumb - ${item.label}`}
             onClick={() => {
               setIsOpen(true)
+              slider.current!.slickGoTo(index, true)
             }}
           />
         ))}
       </Slider>
 
-      <S.Modal
-        isOpen={isOpen}
-        aria-label="modal"
-        aria-hidden={!isOpen}
-      ></S.Modal>
-
-      <S.Close
-        role="button"
-        aria-label="close modal"
-        onClick={() => {
-          setIsOpen(false)
-        }}
-      >
-        <Close size={40} />
-      </S.Close>
+      <S.Modal isOpen={isOpen} aria-label="modal" aria-hidden={!isOpen}>
+        <S.Close
+          role="button"
+          aria-label="close modal"
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          <Close size={40} />
+          <S.Content>
+            <Slider ref={slider} settings={modalSettings}>
+              {items.map((item, index) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={`gallery-${index}`} src={item.src} alt={item.label} />
+              ))}
+            </Slider>
+          </S.Content>
+        </S.Close>
+      </S.Modal>
     </S.Wrapper>
   )
 }
