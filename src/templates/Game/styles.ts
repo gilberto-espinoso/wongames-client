@@ -50,5 +50,14 @@ export const SectionGallery = styled(Section)`
 
   ${media.greaterThan('medium')`
     display: block;
-`}
+    `}
+`
+export const SectionDescription = styled(Section)`
+  ${({ theme }) => css`
+    .description__copyrights {
+      color: ${theme.colors.gray};
+      font-size: ${theme.font.sizes.xsmall};
+      margin-top: ${theme.spacings.medium};
+    }
+  `}
 `
