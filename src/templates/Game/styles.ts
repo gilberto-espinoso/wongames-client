@@ -38,9 +38,17 @@ const Section = styled(Container).attrs({ as: 'section' })`
     margin-bottom: ${theme.spacings.xlarge};
 
     ${media.greaterThan('medium')`
-            margin-bottom: calc(${theme.spacings.xlarge} * 2);
-        `}
+        margin-bottom: calc(${theme.spacings.xlarge} * 2);
+    `}
   `}
 `
 
 export const SectionGameInfo = styled(Section)``
+
+export const SectionGallery = styled(Section)`
+  display: none;
+
+  ${media.greaterThan('medium')`
+    display: block;
+`}
+`
