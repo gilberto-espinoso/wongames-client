@@ -3,6 +3,7 @@ import Base from '@/templates/Base'
 import Heading from '@/components/Heading'
 import Showcase from '@/components/Showcase'
 import { Grid } from '@/components/Grid'
+import { Divider } from '@/components/Divider'
 import { Container } from '@/components/Container'
 import { HighlightProps } from '@/components/Highlight'
 import GameCard, { GameCardProps } from '@/components/GameCard'
@@ -28,6 +29,8 @@ const Wishlist = ({
           <GameCard key={`wisjlist-${index}`} {...game} />
         ))}
       </Grid>
+
+      <Divider />
     </Container>
 
     <Showcase
