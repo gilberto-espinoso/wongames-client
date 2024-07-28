@@ -33,7 +33,7 @@ type LinkProps = {
   isActive?: boolean
 }
 
-export const Link = styled.a<LinkProps>`
+export const Link = styled.div<LinkProps>`
   ${({ theme, isActive }) => css`
     text-decoration: none;
     display: flex;
