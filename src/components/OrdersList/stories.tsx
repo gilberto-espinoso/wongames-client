@@ -1,9 +1,20 @@
 import { Meta, StoryObj } from '@storybook/react'
-import OrdersList from '.'
+import OrdersList, { OrdersListProps } from '.'
+
+import itemsMock from './mock'
 
 export default {
-  title: 'OrdersList',
-  component: OrdersList
+  title: 'Profile/OrdersList',
+  component: OrdersList,
+  args: {
+    items: itemsMock
+  }
 } as Meta
 
-export const Default: StoryObj = {}
+export const Default: StoryObj<OrdersListProps> = {
+  render: ({ ...args }) => (
+    <div style={{ maxWidth: 850, margin: 'auto' }}>
+      <OrdersList {...args} />
+    </div>
+  )
+}
