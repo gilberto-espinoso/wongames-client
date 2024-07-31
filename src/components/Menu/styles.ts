@@ -52,7 +52,7 @@ export const MenuNav = styled.div`
   `}
 `
 
-export const MenuLink = styled.a`
+export const MenuLink = styled.div`
   ${({ theme }) => css`
     position: relative;
     font-size: ${theme.font.sizes.medium};
