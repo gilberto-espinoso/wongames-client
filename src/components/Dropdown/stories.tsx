@@ -1,9 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react'
-import Dropdown from '.'
+import Dropdown, { DropdownProps } from '.'
 
 export default {
   title: 'Dropdown',
-  component: Dropdown
+  component: Dropdown,
+  parameters: {
+    backgrounds: {
+      default: 'won-dark'
+    }
+  }
 } as Meta
 
-export const Default: StoryObj = {}
+export const Default: StoryObj<DropdownProps> = {}
