@@ -6,6 +6,7 @@ export const Wrapper = styled.main`
   ${({ theme }) => css`
     background: ${theme.colors.white};
     display: flex;
+    align-items: center;
     flex-direction: column;
     align-self: start;
   `}
