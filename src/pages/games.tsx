@@ -21,6 +21,7 @@ export async function getStaticProps() {
       revalidate: 60,
       games: data.games.data.map((game) => ({
         title: game.attributes.name,
+        slug: game.attributes.slug,
         developer:
           game.attributes.develops?.data[0]?.attributes?.name ||
           'Unknown Developer',
