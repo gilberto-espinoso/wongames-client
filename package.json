@@ -9,6 +9,8 @@
     "lint": "eslint src",
     "prepare": "husky install",
     "test": "jest",
+    "schema:download": "apollo client:download-schema --endpoint=http://localhost:1337/graphql schema-temp.gql",
+    "codegen": "apollo codegen:generate --target typescript --excludes=node_modules/ --includes=src/graphql/**/*.ts --localSchemaFile schema-temp.gql --tagName=gql --outputFlat src/graphql/generated",
     "generate": "npx plop --plopfile generators/plopfile.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -49,6 +51,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/styled-components": "^5.1.34",
+    "apollo": "^2.34.0",
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
