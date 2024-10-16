@@ -1,35 +1,39 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql } from '@apollo/client'
 
+import { initializeApollo } from '@/utils/apollo'
 import bannersMock from '../components/BannerSlider/mock'
 import gamesMock from '../components/GameCardSlider/mock'
 import highlightMock from '../components/Highlight/mock'
 import Home, { HomeTemplateProps } from '../templates/Home'
 
-export default function Index(props: HomeTemplateProps) {
-  const { data, loading, error } = useQuery(gql`
-    query getGames {
-      games {
-        data {
-          attributes {
-            name
-          }
+const GET_GAMES = gql`
+  query getGames {
+    games {
+      data {
+        attributes {
+          name
         }
       }
     }
-  `)
+  }
+`
 
-  if (loading) return <p>Carregando... </p>
-
-  if (error) return <p>{error.message}</p>
-
-  if (data) return <p>{JSON.stringify(data, null, 2)}</p>
+export default function Index(props: HomeTemplateProps) {
+  if (props.data) return <p>{JSON.stringify(props.data, null, 2)}</p>
 
   return <Home {...props} />
 }
 
-export function getServerSideProps() {
+export async function getServerSideProps() {
+  const apolloClient = initializeApollo()
+
+  const { data } = await apolloClient.query({ query: GET_GAMES })
+
+  //retorno dos dados
   return {
     props: {
+      data: data,
+      initialApoloState: apolloClient.cache.extract(),
       banners: bannersMock,
       newGames: gamesMock,
       mostPopularHighlight: highlightMock,
