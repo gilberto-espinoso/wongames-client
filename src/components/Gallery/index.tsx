@@ -4,8 +4,8 @@ import { Close } from '@styled-icons/material-outlined/Close'
 
 import Slider, { SliderSettings } from '../../components/Slider'
 
+import { useEffect, useRef, useState } from 'react'
 import SlickSlider from 'react-slick'
-import { useEffect, useState, useRef } from 'react'
 import * as S from './styles'
 
 const commonSettings: SliderSettings = {
@@ -78,7 +78,6 @@ const Gallery = ({ items }: GalleryProps) => {
     <S.Wrapper>
       <Slider ref={slider} settings={settings}>
         {items.map((item, index) => (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             role="button"
             key={`thumb-${index}`}
