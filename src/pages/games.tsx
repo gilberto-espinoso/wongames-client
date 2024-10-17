@@ -28,11 +28,7 @@ export async function getStaticProps() {
         img:
           `http://localhost:1337${game.attributes.cover?.data?.attributes?.url}` ||
           null,
-        price:
-          new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-          }).format(game.attributes.price) || 0
+        price: game.attributes.price
       })),
       filterItems: filterItemsMock
     }
