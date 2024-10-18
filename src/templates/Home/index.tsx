@@ -1,10 +1,10 @@
-import Base from '../Base'
 import { BannerProps } from '@/components/Banner'
-import { Container } from '@/components/Container'
 import BannerSlider from '@/components/BannerSlider'
+import { Container } from '@/components/Container'
 import { GameCardProps } from '@/components/GameCard'
 import { HighlightProps } from '@/components/Highlight'
 import Showcase from '@/components/Showcase'
+import Base from '../Base'
 
 import * as S from './styles'
 
@@ -15,7 +15,6 @@ export type HomeTemplateProps = {
   mostPopularGames: GameCardProps[]
   upcommingGames: GameCardProps[]
   upcommingHighligth: HighlightProps
-  upcommingMoreGames: GameCardProps[]
   freeGames: GameCardProps[]
   freeHighligth: HighlightProps
 }
@@ -27,7 +26,6 @@ const Home = ({
   mostPopularGames,
   upcommingGames,
   upcommingHighligth,
-  upcommingMoreGames,
   freeGames,
   freeHighligth
 }: HomeTemplateProps) => (
@@ -44,13 +42,15 @@ const Home = ({
 
     <Showcase
       title="Most Popular"
-      highlight={mostPopularHighlight}
       games={mostPopularGames}
+      highlight={mostPopularHighlight}
     />
-    <S.SectionUpcoming>
-      <Showcase title="Upcomming" games={upcommingGames} />
-      <Showcase highlight={upcommingHighligth} games={upcommingMoreGames} />
-    </S.SectionUpcoming>
+
+    <Showcase
+      title="Upcomming"
+      games={upcommingGames}
+      highlight={upcommingHighligth}
+    />
 
     <Showcase title="Free games" highlight={freeHighligth} games={freeGames} />
   </Base>
