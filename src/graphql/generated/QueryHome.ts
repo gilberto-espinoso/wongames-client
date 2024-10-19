@@ -154,7 +154,8 @@ export interface QueryHome_section_newGames {
 }
 
 export interface QueryHome_section_popularGames {
-  __typename: 'ComponentPagePopularGames'
+  // alterado de: ComponentPagePopularGames
+  __typename: 'ComponentPageSection'
   title: string
   highlight: QueryHome_highlight | null
   games: {
