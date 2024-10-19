@@ -1,3 +1,5 @@
+import { ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT } from './globalTypes'
+
 export interface HighlightFragment_background_data_attributes {
   __typename: 'UploadFile'
   url: string
@@ -36,5 +38,5 @@ export interface HighlightFragment {
   floatImage: HighlightFragment_floatImage | null
   buttonLabel: string
   buttonLink: string
-  alignment: string | null
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT | null
 }

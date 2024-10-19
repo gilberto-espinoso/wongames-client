@@ -15,6 +15,9 @@ export async function getStaticProps() {
     data: { banners, newGames, upcomingGames, freeGames, sections }
   } = await apolloClient.query<QueryHome>({ query: QUERY_HOME })
 
+  console.log(sections)
+  console.log(sections.data?.attributes?.popularGames?.title)
+
   return {
     props: {
       revalidate: 20,
@@ -58,7 +61,15 @@ export async function getStaticProps() {
         img: `http://localhost:1337${upcoming.attributes?.cover?.data?.attributes?.url}`,
         price: upcoming.attributes?.price
       })),
-      upcommingHighligth: highlightMock,
+      upcommingHighligth: {
+        title: sections.data?.attributes?.upcomingGames?.highlight?.title,
+        subtitle: sections.data?.attributes?.upcomingGames?.highlight?.subtitle,
+        backgroundImage: `http://localhost:1337${sections.data?.attributes?.upcomingGames?.highlight?.background?.data?.attributes?.url}`,
+        buttonLabel:
+          sections.data?.attributes?.upcomingGames?.highlight?.buttonLabel,
+        buttonLink:
+          sections.data?.attributes?.upcomingGames?.highlight?.buttonLink
+      },
       freeGames: freeGames.data.map((games) => ({
         title: games.attributes?.name,
         slug: games.attributes?.slug,

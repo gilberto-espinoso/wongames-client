@@ -1,3 +1,9 @@
+import {
+  ENUM_COMPONENTPAGERIBBON_COLOR,
+  ENUM_COMPONENTPAGERIBBON_SIZE,
+  ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT
+} from './globalTypes'
+
 // Banner Fragment Types
 export interface QueryHome_banners_image_data_attributes {
   __typename: 'UploadFile'
@@ -23,8 +29,8 @@ export interface QueryHome_banners_button {
 export interface QueryHome_banners_ribbon {
   __typename: 'ComponentPageRibbon'
   text: string
-  color: string
-  size: string
+  color: ENUM_COMPONENTPAGERIBBON_COLOR
+  size: ENUM_COMPONENTPAGERIBBON_SIZE
 }
 
 export interface QueryHome_banners_attributes {
@@ -99,25 +105,56 @@ export interface QueryHome_freeGames {
 }
 
 // Highlight Fragment Types
+export interface QueryHome_highlight_background_data_attributes {
+  __typename: 'UploadFile'
+  url: string
+}
+
+export interface QueryHome_highlight_background_data {
+  __typename: 'UploadFileEntityResponse'
+  attributes: QueryHome_highlight_background_data_attributes | null
+}
+
+export interface QueryHome_highlight_background {
+  __typename: 'UploadFileEntityResponse'
+  data: QueryHome_highlight_background_data | null
+}
+
+export interface QueryHome_highlight_floatImage_data_attributes {
+  __typename: 'UploadFile'
+  url: string
+}
+
+export interface QueryHome_highlight_floatImage_data {
+  __typename: 'UploadFileEntityResponse'
+  attributes: QueryHome_highlight_floatImage_data_attributes | null
+}
+
+export interface QueryHome_highlight_floatImage {
+  __typename: 'UploadFileEntityResponse'
+  data: QueryHome_highlight_floatImage_data | null
+}
+
 export interface QueryHome_highlight {
-  __typename: 'Highlight'
+  __typename: 'ComponentPageHighlight'
   title: string
   subtitle: string
-  background: string
-  floatImage: string
+  background: QueryHome_highlight_background | null
+  floatImage: QueryHome_highlight_floatImage | null
   buttonLabel: string
   buttonLink: string
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT | null
 }
 
 // Section Types
 export interface QueryHome_section_newGames {
-  __typename: 'ComponentSection'
+  __typename: 'ComponentPageSection'
   title: string
   highlight: QueryHome_highlight | null
 }
 
 export interface QueryHome_section_popularGames {
-  __typename: 'ComponentSection'
+  __typename: 'ComponentPagePopularGames'
   title: string
   highlight: QueryHome_highlight | null
   games: {
@@ -126,13 +163,13 @@ export interface QueryHome_section_popularGames {
 }
 
 export interface QueryHome_section_upcomingGames {
-  __typename: 'ComponentSection'
+  __typename: 'ComponentPageSection'
   title: string
   highlight: QueryHome_highlight | null
 }
 
 export interface QueryHome_section_freeGames {
-  __typename: 'ComponentSection'
+  __typename: 'ComponentPageSection'
   title: string
   highlight: QueryHome_highlight | null
 }
@@ -163,7 +200,7 @@ export interface QueryHome {
     data: QueryHome_games[]
   }
   upcomingGames: {
-    data: QueryHome_games[]
+    data: QueryHome_upcomingGames[]
   }
   freeGames: {
     data: QueryHome_freeGames[]
