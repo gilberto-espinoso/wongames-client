@@ -98,6 +98,62 @@ export interface QueryHome_freeGames {
   attributes: QueryHome_games_attributes | null
 }
 
+// Highlight Fragment Types
+export interface QueryHome_highlight {
+  __typename: 'Highlight'
+  title: string
+  subtitle: string
+  background: string
+  floatImage: string
+  buttonLabel: string
+  buttonLink: string
+}
+
+// Section Types
+export interface QueryHome_section_newGames {
+  __typename: 'ComponentSection'
+  title: string
+  highlight: QueryHome_highlight | null
+}
+
+export interface QueryHome_section_popularGames {
+  __typename: 'ComponentSection'
+  title: string
+  highlight: QueryHome_highlight | null
+  games: {
+    data: QueryHome_games[]
+  }
+}
+
+export interface QueryHome_section_upcomingGames {
+  __typename: 'ComponentSection'
+  title: string
+  highlight: QueryHome_highlight | null
+}
+
+export interface QueryHome_section_freeGames {
+  __typename: 'ComponentSection'
+  title: string
+  highlight: QueryHome_highlight | null
+}
+
+export interface QueryHome_sections_attributes {
+  __typename: 'HomeSections'
+  newGames: QueryHome_section_newGames | null
+  popularGames: QueryHome_section_popularGames | null
+  upcomingGames: QueryHome_section_upcomingGames | null
+  freeGames: QueryHome_section_freeGames | null
+}
+
+export interface QueryHome_sections_data {
+  __typename: 'HomeEntityResponse'
+  attributes: QueryHome_sections_attributes | null
+}
+
+export interface QueryHome_sections {
+  data: QueryHome_sections_data | null
+}
+
 // Main QueryHome Type
 export interface QueryHome {
   banners: {
@@ -112,4 +168,5 @@ export interface QueryHome {
   freeGames: {
     data: QueryHome_freeGames[]
   }
+  sections: QueryHome_sections
 }
