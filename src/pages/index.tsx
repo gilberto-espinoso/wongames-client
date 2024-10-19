@@ -1,7 +1,6 @@
 import { QueryHome } from '@/graphql/generated/QueryHome'
 import { QUERY_HOME } from '@/graphql/queries/home'
 import { initializeApollo } from '@/utils/apollo'
-import highlightMock from '../components/Highlight/mock'
 import Home, { HomeTemplateProps } from '../templates/Home'
 
 export default function Index(props: HomeTemplateProps) {
@@ -42,7 +41,28 @@ export async function getStaticProps() {
         price: newGame.attributes?.price
       })),
       mostPopularGamesTitle: sections.data?.attributes?.popularGames?.title,
-      mostPopularHighlight: highlightMock,
+      mostPopularHighlight: {
+        title:
+          sections.data?.attributes?.popularGames?.highlight?.title || 'Error',
+        subtitle:
+          sections.data?.attributes?.popularGames?.highlight?.subtitle ||
+          'Error',
+        backgroundImage:
+          `http://localhost:1337${sections.data?.attributes?.popularGames?.highlight?.background?.data?.attributes?.url}` ||
+          '/img/red-dead-img.jpg',
+        floatImage:
+          `http://localhost:1337${sections.data?.attributes?.popularGames?.highlight?.floatImage?.data?.attributes?.url}` ||
+          null,
+        buttonLabel:
+          sections.data?.attributes?.popularGames?.highlight?.buttonLabel ||
+          'Error',
+        buttonLink:
+          sections.data?.attributes?.popularGames?.highlight?.buttonLink ||
+          null,
+        alignment:
+          sections.data?.attributes?.popularGames?.highlight?.alignment ||
+          'right'
+      },
       mostPopularGames: sections.data!.attributes!.popularGames!.games.data.map(
         (game) => ({
           title: game.attributes?.name,
@@ -83,7 +103,25 @@ export async function getStaticProps() {
         img: `http://localhost:1337${games.attributes?.cover?.data?.attributes?.url}`,
         price: games.attributes?.price
       })),
-      freeHighligth: highlightMock
+      freeHighligth: {
+        title:
+          sections.data?.attributes?.freeGames?.highlight?.title || 'Error',
+        subtitle:
+          sections.data?.attributes?.freeGames?.highlight?.subtitle || 'Error',
+        backgroundImage:
+          `http://localhost:1337${sections.data?.attributes?.freeGames?.highlight?.background?.data?.attributes?.url}` ||
+          '/img/red-dead-img.jpg',
+        floatImage:
+          `http://localhost:1337${sections.data?.attributes?.freeGames?.highlight?.floatImage?.data?.attributes?.url}` ||
+          null,
+        buttonLabel:
+          sections.data?.attributes?.freeGames?.highlight?.buttonLabel ||
+          'Error',
+        buttonLink:
+          sections.data?.attributes?.freeGames?.highlight?.buttonLink || null,
+        alignment:
+          sections.data?.attributes?.freeGames?.highlight?.alignment || 'right'
+      }
     }
   }
 }
