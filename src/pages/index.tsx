@@ -13,7 +13,7 @@ export async function getStaticProps() {
   const apolloClient = initializeApollo()
 
   const {
-    data: { banners, newGames }
+    data: { banners, newGames, upcomingGames, freeGames }
   } = await apolloClient.query<QueryHome>({ query: QUERY_HOME })
 
   return {
@@ -40,10 +40,25 @@ export async function getStaticProps() {
       })),
       mostPopularHighlight: highlightMock,
       mostPopularGames: gamesMock,
-      upcommingGames: gamesMock,
+      upcommingGames: upcomingGames.data.map((upcoming) => ({
+        title: upcoming.attributes?.name,
+        slug: upcoming.attributes?.slug,
+        developer: upcoming.attributes?.develops.data.map(
+          (item) => item.attributes?.name
+        ),
+        img: `http://localhost:1337${upcoming.attributes?.cover?.data?.attributes?.url}`,
+        price: upcoming.attributes?.price
+      })),
       upcommingHighligth: highlightMock,
-      upcommingMoreGames: gamesMock,
-      freeGames: gamesMock,
+      freeGames: freeGames.data.map((games) => ({
+        title: games.attributes?.name,
+        slug: games.attributes?.slug,
+        developer: games.attributes?.develops.data.map(
+          (item) => item.attributes?.name
+        ),
+        img: `http://localhost:1337${games.attributes?.cover?.data?.attributes?.url}`,
+        price: games.attributes?.price
+      })),
       freeHighligth: highlightMock
     }
   }

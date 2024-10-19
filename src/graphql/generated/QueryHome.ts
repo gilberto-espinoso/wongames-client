@@ -42,48 +42,60 @@ export interface QueryHome_banners {
 }
 
 // Game Fragment Types
-export interface QueryHome_newGames_cover_data_attributes {
+export interface QueryHome_games_cover_data_attributes {
   __typename: 'UploadFile'
   url: string
 }
 
-export interface QueryHome_newGames_cover_data {
+export interface QueryHome_games_cover_data {
   __typename: 'UploadFileEntityResponse'
-  attributes: QueryHome_newGames_cover_data_attributes | null
+  attributes: QueryHome_games_cover_data_attributes | null
 }
 
-export interface QueryHome_newGames_cover {
+export interface QueryHome_games_cover {
   __typename: 'UploadFileEntityResponse'
-  data: QueryHome_newGames_cover_data | null
+  data: QueryHome_games_cover_data | null
 }
 
-export interface QueryHome_newGames_develops_data_attributes {
+export interface QueryHome_games_develops_data_attributes {
   __typename: 'Develop'
   name: string
 }
 
-export interface QueryHome_newGames_develops_data {
+export interface QueryHome_games_develops_data {
   __typename: 'DevelopEntity'
-  attributes: QueryHome_newGames_develops_data_attributes | null
+  attributes: QueryHome_games_develops_data_attributes | null
 }
 
-export interface QueryHome_newGames_develops {
+export interface QueryHome_games_develops {
   __typename: 'DevelopRelationResponseCollection'
-  data: QueryHome_newGames_develops_data[]
+  data: QueryHome_games_develops_data[]
 }
 
-export interface QueryHome_newGames_attributes {
+export interface QueryHome_games_attributes {
   __typename: 'Game'
   name: string
   slug: string
-  cover: QueryHome_newGames_cover | null
-  develops: QueryHome_newGames_develops
+  cover: QueryHome_games_cover | null
+  develops: QueryHome_games_develops
   price: number
 }
 
-export interface QueryHome_newGames {
+export interface QueryHome_games {
   __typename: 'GameEntity'
-  attributes: QueryHome_newGames_attributes | null
+  attributes: QueryHome_games_attributes | null
+}
+
+// Upcoming Games Fragment Types
+export interface QueryHome_upcomingGames {
+  __typename: 'GameEntity'
+  attributes: QueryHome_games_attributes | null
+}
+
+// Free Games Fragment Types
+export interface QueryHome_freeGames {
+  __typename: 'GameEntity'
+  attributes: QueryHome_games_attributes | null
 }
 
 // Main QueryHome Type
@@ -92,6 +104,12 @@ export interface QueryHome {
     data: QueryHome_banners[]
   }
   newGames: {
-    data: QueryHome_newGames[]
+    data: QueryHome_games[]
+  }
+  upcomingGames: {
+    data: QueryHome_games[]
+  }
+  freeGames: {
+    data: QueryHome_freeGames[]
   }
 }
