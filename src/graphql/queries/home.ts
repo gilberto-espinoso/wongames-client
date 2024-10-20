@@ -61,7 +61,7 @@ export const QUERY_HOME = gql`
 
           popularGames {
             title
-            hightlight {
+            highlight {
               ...HighlightFragment
             }
             games {
