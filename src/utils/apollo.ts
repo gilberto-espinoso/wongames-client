@@ -12,7 +12,30 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({ uri: 'http://localhost:1337/graphql' }),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            games: {
+              // Don't cache separate results based on
+              // any of this field's arguments.
+              keyArgs: false,
+
+              // Concatenate the incoming list items with
+              // the existing list items.
+              merge(existing = [], incoming) {
+                const existingGames = existing?.data || []
+                const incomingGames = incoming?.data || []
+                return {
+                  ...incoming,
+                  data: [...existingGames, ...incomingGames]
+                }
+              }
+            }
+          }
+        }
+      }
+    })
   })
 }
 
