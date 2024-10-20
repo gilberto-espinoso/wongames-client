@@ -1,19 +1,19 @@
 import { initializeApollo } from '@/utils/apollo'
 import { useRouter } from 'next/router'
 
-import gamesMock from '@/components/GameCardSlider/mock'
-import highlightMock from '@/components/Highlight/mock'
 import {
   QueryGameBySlug,
   QueryGameBySlugVariables
 } from '@/graphql/generated/QueryGameBySlug'
 import { QueryGames, QueryGamesVariables } from '@/graphql/generated/QueryGames'
-import { QUERY_GAME_BY_SLUG, QUERY_GAMES } from '@/graphql/queries/games'
-import Game, { GameTemplateProps } from '@/templates/Game'
-import { GetStaticProps } from 'next'
+import { QueryHome } from '@/graphql/generated/QueryHome'
 import { QueryRecommended } from '@/graphql/generated/QueryRecommended'
+import { QUERY_GAME_BY_SLUG, QUERY_GAMES } from '@/graphql/queries/games'
+import { QUERY_HOME } from '@/graphql/queries/home'
 import { QUERY_RECOMMENDED } from '@/graphql/queries/recommended'
-import { gamesMapper } from '@/utils/mappers'
+import Game, { GameTemplateProps } from '@/templates/Game'
+import { gamesMapper, highlightMapper } from '@/utils/mappers'
+import { GetStaticProps } from 'next'
 
 const apolloClient = initializeApollo()
 
@@ -57,6 +57,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { data: recommendedData } = await apolloClient.query<QueryRecommended>({
     query: QUERY_RECOMMENDED
   })
+
+  // Get home data
+  const {
+    data: { upcomingGames, sections }
+  } = await apolloClient.query<QueryHome>({ query: QUERY_HOME })
+
   return {
     props: {
       revalidate: 60,
@@ -85,9 +91,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           (category) => category.attributes.name
         )
       },
-      UpcomingTitle: 'Em breve',
-      upcomingGames: gamesMock,
-      upcomingHighlight: highlightMock,
+      UpcomingTitle: sections.data?.attributes?.upcomingGames?.title,
+      upcomingGames: gamesMapper(upcomingGames.data),
+      upcomingHighlight: highlightMapper(
+        sections.data?.attributes?.upcomingGames
+      ),
       recommendedTitle:
         recommendedData.recommended.data?.attributes?.section?.title,
       recommendedGames: gamesMapper(
