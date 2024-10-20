@@ -11,6 +11,9 @@ import { QueryGames, QueryGamesVariables } from '@/graphql/generated/QueryGames'
 import { QUERY_GAME_BY_SLUG, QUERY_GAMES } from '@/graphql/queries/games'
 import Game, { GameTemplateProps } from '@/templates/Game'
 import { GetStaticProps } from 'next'
+import { QueryRecommended } from '@/graphql/generated/QueryRecommended'
+import { QUERY_RECOMMENDED } from '@/graphql/queries/recommended'
+import { gamesMapper } from '@/utils/mappers'
 
 const apolloClient = initializeApollo()
 
@@ -40,6 +43,7 @@ export async function getStaticPaths() {
 
 // é para a página em específico, onde vai alimentar a página com os dados (Preenche os dados)
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // Get game data
   const { data } = await apolloClient.query<
     QueryGameBySlug,
     QueryGameBySlugVariables
@@ -49,6 +53,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const game = data.games.data[0]
 
+  // Get recommended game data
+  const { data: recommendedData } = await apolloClient.query<QueryRecommended>({
+    query: QUERY_RECOMMENDED
+  })
   return {
     props: {
       revalidate: 60,
@@ -77,9 +85,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           (category) => category.attributes.name
         )
       },
+      UpcomingTitle: 'Em breve',
       upcomingGames: gamesMock,
       upcomingHighlight: highlightMock,
-      recommendedGames: gamesMock
+      recommendedTitle:
+        recommendedData.recommended.data?.attributes?.section?.title,
+      recommendedGames: gamesMapper(
+        recommendedData.recommended.data?.attributes?.section?.games.data
+      )
     }
   }
 }
