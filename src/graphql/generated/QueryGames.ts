@@ -45,4 +45,8 @@ export interface QueryGames {
 export interface QueryGamesVariables {
   limit: number
   start?: number
+  sort?: string
+  genre?: string
+  platform?: string
+  price?: number
 }
